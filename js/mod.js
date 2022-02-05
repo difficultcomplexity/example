@@ -12,8 +12,8 @@ let modInfo = {
 }
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Placeholder.",
+	num: "0.2.3.2 | Non-Redux",
+	name: "Tier 2 Update 3 Addition 1: Boosters",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
