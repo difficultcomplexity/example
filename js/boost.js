@@ -19,9 +19,9 @@ addLayer("bp", {
             unlocked() {return hasUpgrade('sc', 35) || player.tier.points.gte(2)}
         },
     },
-    //autoUpgrade() {
-    //    return hasMilestone("o", 2)
-    //},
+    autoUpgrade() {
+        return hasMilestone("mL", 4)
+    },
     //passiveGeneration() {
     //    let gen = new Decimal(0)
     //    if (hasMilestone("o", 1)) gen = new Decimal(0.5)

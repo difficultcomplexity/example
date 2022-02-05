@@ -22,7 +22,7 @@ addLayer("mL", {
     milestones: {
         1: {
             requirementDescription: "Mastery Level 3",
-            effectDescription: "Get 50% of RP on prestige per second",
+            effectDescription: "Get 10% of RP on prestige per second",
             done() { return player.mL.points.gte(3) }
         },
         2: {

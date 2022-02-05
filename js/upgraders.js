@@ -54,9 +54,19 @@ addLayer("upg", {
             unlocked() {return hasUpgrade('upg', 13) && player.tier.points.gte(2)},
         },
     },
-    //autoUpgrade() {
-    //    return hasMilestone("o", 2)
-    //},
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1) },
+            display() { return "Warning! Recieving upgrader causes EXP gain to be divided by 1 1/200 but it will reduce." },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+    },
+    autoUpgrade() {
+        return hasMilestone("mL", 3)
+    },
     //passiveGeneration() {
     //    let gen = new Decimal(0)
     //    if (hasMilestone("o", 1)) gen = new Decimal(0.5)

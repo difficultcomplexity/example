@@ -5,8 +5,8 @@ addLayer("r", {
             description: "Level up speed based on research.",
             cost: new Decimal(1),
             effect() {
-                let effect = (player.r.points.add(1)).log(1.2).add(1).pow(0.33)
-                if (hasUpgrade('sc', 22)) effect = (player.r.points.add(1)).log(1.15).add(1).pow(0.4)
+                let effect = (player.r.points.add(1)).log(1.2).add(1).pow(0.33).add(1).log(1.5)
+                if (hasUpgrade('sc', 22)) effect = (player.r.points.add(1)).log(1.175).add(1).pow(0.4).log(1.5)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -17,7 +17,7 @@ addLayer("r", {
             cost: new Decimal(3),
             unlocked() {return hasUpgrade('r', 11) && player.tier.points.gte(1)},
             effect() {
-                return (player.points.add(4.7)).pow(0.5).pow(0.9).log(2)
+                return (player.points.add(4.7)).pow(0.5).pow(0.8).log(2.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -28,7 +28,7 @@ addLayer("r", {
             unlocked() {return hasUpgrade('r', 12) && player.tier.points.gte(1)},
             effect() {
                 let effect = Decimal.pow(1.15, player.r.upgrades.length)
-                if (hasUpgrade('s', 14)) effect = Decimal.pow(1.25, player.r.upgrades.length)
+                if (hasUpgrade('s', 14)) effect = Decimal.pow(1.2, player.r.upgrades.length)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -39,7 +39,7 @@ addLayer("r", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('r', 13) && player.tier.points.gte(1)},
             effect() {
-                return (player.r.points.add(1)).log(1.1).add(2).pow(0.15).pow(0.3)
+                return (player.r.points.add(1)).log(1.1).add(2).pow(0.15).pow(0.3).add(1).log(2)
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
@@ -103,12 +103,12 @@ addLayer("r", {
             done() { return player.points.gte(100) }
         },
     },
-    //autoUpgrade() {
-    //    return hasMilestone("o", 2)
-    //},
+    autoUpgrade() {
+        return hasMilestone("mL", 2)
+    },
     passiveGeneration() {
         let gen = new Decimal(0)
-        if (hasMilestone("mL", 1)) gen = new Decimal(0.5)
+        if (hasMilestone("mL", 1)) gen = new Decimal(0.1)
         return gen
     },
     name: "research", // This is optional, only used in a few places, If absent it just uses the layer id.

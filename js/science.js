@@ -6,7 +6,7 @@ addLayer("sc", {
             cost: new Decimal(10),
             
             effect() {
-                return (player.sc.points.add('e10').log(10).log(10)).add(0.1)
+                return (player.sc.points.add(1e10).log(9).log(10)).add(0.1)
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
@@ -16,7 +16,7 @@ addLayer("sc", {
             cost: new Decimal(30),
             unlocked() {return hasUpgrade('sc', 11) && player.tier.points.gte(1)},
             effect() {
-                return (player.sc.points.log(4).add(4)).pow(0.3).pow((player.s.points.add(1)).log(3).pow(0.45))
+                return (player.sc.points.log(4).add(4)).pow(0.3).pow((player.s.points.add(1)).log(4).pow(0.4))
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -125,9 +125,9 @@ addLayer("sc", {
 
         },
     },
-    //autoUpgrade() {
-    //    return hasMilestone("o", 2)
-    //},
+    autoUpgrade() {
+        return hasMilestone("mL", 5)
+    },
     update(diff) {
         let gain = new Decimal(0)
         if (hasUpgrade("s", 15)) gain = new Decimal(0.0001).mul(player.points.add('e4')).pow(player.s.points.add(4).log(4).pow(0.35).add(1))
