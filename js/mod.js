@@ -17,9 +17,45 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+        <h2>v0.1</h2><br>
+        - Game Launch.<br>
+        <h3>v0.1.1</h3><br>
+        - Added Research Upgrades.<br>
+        <h3>v0.1.2</h3><br>
+        - Added Scientists.<br>
+        - Added Scientist Upgrades.<br>
+        v0.1.2.1<br>
+        - Rebalanced.<br>
+        <h3>v0.1.3</h3><br>
+        - Added Science.<br>
+        - Added 5 Science Upgrades.<br>
+        v0.1.3.1<br>
+        - Added 5 more Science Upgrades.<br>
+        - Rebalanced.<br>
+        <h3>v0.1.9</h3><br>
+        - Added Tiers.<br>
+        - Was useless until v0.2.<br>
+		<h2>v0.2</h2><br>
+		- Added Tier Boosts and effective unlocks.<br>
+		- Added more Science Upgrades.<br>
+		- Beginning of Tier 2.<br>
+		<h3>v0.2.1</h3><br>
+        - Added more Research Upgrades.<br>
+        - Rebalanced.<br>
+		<h3>v0.2.2</h3><br>
+        - Added Mastery.<br>
+        - Rebalanced boost.<br>
+		v0.2.2.1<br>
+        - Added Mastery Upgrades.<br>
+        - Rebalanced.<br>
+		<h3>v0.2.3</h3><br>
+        - Added Boosters.<br>
+        - Rebalanced boost.<br>
+		v0.2.3.1<br>
+        - Added Booster Upgrades.<br>
+		v0.2.3.2<br>
+        - Added Mastery Milestones.<br>
+		- Rebalanced.<br>`
 	
 
 let winText = `Congratulations! You researched all types of any objects and caused a new invention to go more META! (Please do not press "Keep going.")`
