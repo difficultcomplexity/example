@@ -22,7 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added stuff.`
 	
 
-let winText = `Contract! You came to an end, but now.`
+let winText = `Congratulations! You researched all types of any objects and caused a new invention to go more META! (Please do not press "Keep going.")`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -71,7 +71,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte('eee10')
+	return player.r.points.gte('e5')
 	// player.li.points.gte(7.6e9)
 }
 
