@@ -37,6 +37,52 @@ addLayer("s", {
             cost: new Decimal(4),
             unlocked() {return hasUpgrade('s', 14) && player.tier.points.gte(1)},
         },
+        21: {
+            title: "Thermal Energy",
+            description: "Mastery boost EXP gain, by boosters.",
+            cost: new Decimal(6),
+            unlocked() {return hasUpgrade('s', 15) && player.tier.points.gte(2)},
+            effect() {
+                return (player.mL.points.pow(0.2).add(2).pow(0.2)).add(4).log(4).pow(Decimal.pow(1.002, player.bp.points).add(2).log(2))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        22: {
+            title: "Pre-boost Scientists",
+            description: "Scientists boost EXP gain, by science.",
+            cost: new Decimal(7),
+            unlocked() {return hasUpgrade('s', 21) && player.tier.points.gte(2)},
+            effect() {
+                return (player.s.points.pow(0.1).add(2).pow(0.15)).add(3.5).log(3.5).pow(Decimal.pow(1.002, (player.sc.points).add(10).log(10)).add(2).log(2))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        23: {
+            title: "Researcher",
+            description: "Scientists boost research gain, by mastery.",
+            cost: new Decimal(7),
+            unlocked() {return hasUpgrade('s', 22) && player.tier.points.gte(2)},
+            effect() {
+                return (player.s.points.pow(0.2).add(2).pow(0.175)).add(2.5).log(2.5).pow(Decimal.pow(1.005, (player.mL.points).add(2).log(2)).add(3).log(3))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        24: {
+            title: "Power of 10",
+            description: "Scientists powers research gain.",
+            cost: new Decimal(7),
+            unlocked() {return hasUpgrade('s', 23) && player.tier.points.gte(2)},
+            effect() {
+                return (player.s.points.pow(0.33).pow(0.9)).add(10).log(10)
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
+        },
+        25: {
+            title: "Challenging",
+            description: "Unlock Challenges.",
+            cost: new Decimal(8),
+            unlocked() {return hasUpgrade('s', 24) && player.tier.points.gte(2)},
+        },
     },
     //autoUpgrade() {
     //    return hasMilestone("o", 2)

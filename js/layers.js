@@ -7,6 +7,7 @@ addLayer("r", {
             effect() {
                 let effect = (player.r.points.add(1)).log(1.2).add(1).pow(0.33).add(1).log(1.5)
                 if (hasUpgrade('sc', 22)) effect = (player.r.points.add(1)).log(1.175).add(1).pow(0.4).log(1.5)
+                if (inChallenge('bp', 11)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -29,6 +30,7 @@ addLayer("r", {
             effect() {
                 let effect = Decimal.pow(1.15, player.r.upgrades.length)
                 if (hasUpgrade('s', 14)) effect = Decimal.pow(1.2, player.r.upgrades.length)
+                if (inChallenge('bp', 11)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -39,7 +41,9 @@ addLayer("r", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('r', 13) && player.tier.points.gte(1)},
             effect() {
-                return (player.r.points.add(1)).log(1.1).add(2).pow(0.15).pow(0.3).add(1).log(2)
+                let effect = (player.r.points.add(1)).log(1.1).add(2).pow(0.15).pow(0.3).add(1).log(2)
+                if (inChallenge('bp', 12)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
@@ -83,9 +87,11 @@ addLayer("r", {
             title: "Master of Research",
             description: "Gain x1.05 more research per RP upgrade.",
             cost: new Decimal('e4'),
-            unlocked() {return hasUpgrade('r', 22) && player.tier.points.gte(2)},
+            unlocked() {return hasUpgrade('r', 23) && player.tier.points.gte(2)},
             effect() {
-                return new Decimal.pow(1.05, player.r.upgrades.length)
+                let effect = new Decimal.pow(1.05, player.r.upgrades.length)
+                if (inChallenge('bp', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -93,7 +99,7 @@ addLayer("r", {
             title: "Levellings",
             description: "Unlock Mastery.",
             cost: new Decimal(15000),
-            unlocked() {return hasUpgrade('r', 22) && player.tier.points.gte(2)},
+            unlocked() {return hasUpgrade('r', 24) && player.tier.points.gte(2)},
         },
     },
     milestones: {
@@ -131,11 +137,11 @@ addLayer("r", {
         if (hasUpgrade('s', 12)) mult = mult.times(upgradeEffect('s', 12))
         if (hasUpgrade('sc', 14)) mult = mult.times(upgradeEffect('sc', 14))
         if (hasUpgrade('upg', 12)) mult = mult.times(upgradeEffect('upg', 12))
-        if (hasUpgrade('s', 22)) mult = mult.times(upgradeEffect('s', 22))
-        if (hasUpgrade('s', 24)) mult = mult.times(upgradeEffect('s', 24))
+        if (hasUpgrade('s', 23)) mult = mult.times(upgradeEffect('s', 23))
         if (hasUpgrade('sc', 33)) mult = mult.times(upgradeEffect('sc', 33))
         if (hasUpgrade('bp', 11)) mult = mult.times(2)
-        if (hasUpgrade('s', 21)) mult = mult.pow(upgradeEffect('s', 21))
+        if (hasUpgrade('r', 21)) mult = mult.pow(upgradeEffect('r', 21))
+        if (hasUpgrade('s', 24)) mult = mult.pow(upgradeEffect('s', 24))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

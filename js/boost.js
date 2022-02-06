@@ -19,6 +19,32 @@ addLayer("bp", {
             unlocked() {return hasUpgrade('sc', 35) || player.tier.points.gte(2)}
         },
     },
+    challenges: {
+        11: {
+            name: "Unexperienced",
+            challengeDescription: "Useful upgrades that gives a lot of EXP multipliers are useless.",
+            goalDescription: "200 Experience Points",
+            rewardDescription: "Unlock 'Base BP to EXP UP' upgrade! (NI)",
+            canComplete: function() {return player.points.gte(200)},
+            unlocked() { return (hasUpgrade('s', 25)) },
+        },
+        12: {
+            name: "Unresearchable",
+            challengeDescription: "Upgrades that power things are useless.",
+            goalDescription: "1500 Experience Points",
+            rewardDescription: "Unlock 'Base BP to RP UP' upgrade! (NI)",
+            canComplete: function() {return player.points.gte(1500)},
+            unlocked() { return (hasUpgrade('s', 25)) },
+        },
+        13: {
+            name: "Science of Scilence",
+            challengeDescription: "Science layer is locked.",
+            goalDescription: "4000 Experience Points",
+            rewardDescription: "Unlock 'Base BP to SP UP' upgrade! (NI)",
+            canComplete: function() {return player.points.gte(4000)},
+            unlocked() { return (hasUpgrade('s', 25)) },
+        },
+    },
     autoUpgrade() {
         return hasMilestone("mL", 4)
     },

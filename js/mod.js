@@ -12,8 +12,8 @@ let modInfo = {
 }
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.3.3 | Non-Redux",
-	name: "Tier 2 Update 3 Addition 2: Boosters",
+	num: "0.2.4.1 | Non-Redux",
+	name: "Tier 2 Update 4 Addition 1: Challenges",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -58,7 +58,12 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Rebalanced.<br>
 		v0.2.3.3<br>
         - Added penalty for upgraders, but will reduce soon.<br>
-		- Rebalanced to ensure to have Scientist Upgrades 21-25 and Level Layer.<br>`
+		- Rebalanced to ensure to have Scientist Upgrades 21-25 and Level Layer.<br>
+		<h3>v0.2.4</h3><br>
+        - Added Challenges.<br>
+        - Rebalanced formula.<br>
+		v0.2.4.1<br>
+        - Added Challenge Nerfs.<br>`
 	
 
 let winText = `Congratulations! You researched all types of any objects and caused a new invention to go more META! (Please do not press "Keep going.")`
@@ -81,10 +86,10 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(0.9).div(player.points.pow(1.3).add(0.7)).mul(new Decimal.pow(1.09, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).log(1.1).add(1))))
-	if (hasUpgrade('s', 13)) gain = new Decimal(0.95).div(player.points.pow(1.1).add(0.5)).mul(new Decimal.pow(1.09, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).log(1.1).add(1))))
-	if (hasUpgrade('sc', 23)) gain = new Decimal(1).div(player.points.add(0.4)).mul(new Decimal.pow(1.09, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).log(1.1).add(1))))
-	if (hasUpgrade('sc', 34)) gain = new Decimal(1).div(player.points.pow(0.95).add(0.9)).mul(new Decimal.pow(1.1, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).log(1.1).add(1))))
+	let gain = new Decimal(0.9).div(player.points.pow(1.3).add(0.7)).mul(new Decimal.pow(1.05, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).add(1).log(1.1))))
+	if (hasUpgrade('s', 13)) gain = new Decimal(0.95).div(player.points.pow(1.1).add(0.5)).mul(new Decimal.pow(1.05, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).add(1).log(1.1))))
+	if (hasUpgrade('sc', 23)) gain = new Decimal(1).div(player.points.add(0.4)).mul(new Decimal.pow(1.05, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).add(1).log(1.1))))
+	if (hasUpgrade('sc', 34)) gain = new Decimal(1).div(player.points.pow(0.97).add(0.9)).mul(new Decimal.pow(1.075, player.tier.points)).div((new Decimal.pow(1.005, (player.upg.points).add(1).log(1.1))))
 	if (hasUpgrade('r', 11)) gain = gain.times(upgradeEffect('r', 11))
 	if (hasUpgrade('r', 12)) gain = gain.times(upgradeEffect('r', 12))
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
@@ -95,6 +100,8 @@ function getPointGen() {
 	if (hasUpgrade('mL', 11)) gain = gain.times(upgradeEffect('mL', 11))
 	if (hasUpgrade('sc', 31)) gain = gain.times(upgradeEffect('sc', 31))
 	if (hasUpgrade('bp', 12)) gain = gain.times(1.5)
+	if (hasUpgrade('s', 21)) gain = gain.times(upgradeEffect('s', 21))
+	if (hasUpgrade('s', 22)) gain = gain.times(upgradeEffect('s', 22))
 	if (hasUpgrade('r', 14)) gain = gain.pow(upgradeEffect('r', 14))
 	if (hasUpgrade('sc', 11)) gain = gain.pow(upgradeEffect('sc', 11))
 	return gain

@@ -6,7 +6,9 @@ addLayer("sc", {
             cost: new Decimal(10),
             
             effect() {
-                return (player.sc.points.add(1e10).log(9).log(10)).add(0.1)
+                let effect = (player.sc.points.add(1e10).log(9).log(10)).add(0.1)
+                if (inChallenge('bp', 12)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
@@ -165,5 +167,5 @@ addLayer("sc", {
     hotkeys: [
         {key: "s", description: "S: Reset for scientists", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return (hasUpgrade('s', 15))}
+    layerShown(){return (hasUpgrade('s', 15)) &&! (inChallenge('bp', 13))}
 })
