@@ -4,19 +4,55 @@ addLayer("bp", {
             title: "Doubler RP!",
             description: "Double RP gain.",
             cost: new Decimal(1),
-            unlocked() {return hasUpgrade('sc', 35) || player.tier.points.gte(2)}
+            unlocked() {return hasUpgrade('sc', 35) || (hasChallenge('bp', 11)) || player.bp.points.gte(1) && player.tier.points.gte(2)},
+            effect() {
+                let effect = new Decimal(2)
+                if (hasUpgrade('bp', 21)) effect = new Decimal(2.5)
+                return effect
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         12: {
             title: "Semi-Doubler EXP!",
             description: "x1.5 EXP gain.",
             cost: new Decimal(1),
-            unlocked() {return hasUpgrade('sc', 35) || player.tier.points.gte(2)}
+            unlocked() {return hasUpgrade('sc', 35) || (hasChallenge('bp', 12)) || player.bp.points.gte(1) && player.tier.points.gte(2)},
+            effect() {
+                let effect = new Decimal(1.5)
+                if (hasUpgrade('bp', 21)) effect = new Decimal(1.75)
+                return effect
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         13: {
             title: "Tripler SP!",
             description: "Triple RP gain.",
             cost: new Decimal(1),
-            unlocked() {return hasUpgrade('sc', 35) || player.tier.points.gte(2)}
+            unlocked() {return hasUpgrade('sc', 35) || (hasChallenge('bp', 13)) || player.bp.points.gte(1) && player.tier.points.gte(2)},
+            effect() {
+                let effect = new Decimal(3)
+                if (hasUpgrade('bp', 21)) effect = new Decimal(4)
+                return effect
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        21: {
+            title: "BP to RP UP!",
+            description: "Increase B11 Upgrade.",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade('bp', 11) && player.tier.points.gte(2) && (hasChallenge('bp', 11))}
+        },
+        22: {
+            title: "BP to EXP UP!",
+            description: "Increase B12 Upgrade.",
+            cost: new Decimal(4),
+            unlocked() {return hasUpgrade('bp', 12) && player.tier.points.gte(2) && (hasChallenge('bp', 12))}
+        },
+        23: {
+            title: "BP to SP UP!",
+            description: "Increase B13 Upgrade.",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade('bp', 13) && player.tier.points.gte(2) && (hasChallenge('bp', 13))}
         },
     },
     challenges: {
@@ -24,7 +60,7 @@ addLayer("bp", {
             name: "Unexperienced",
             challengeDescription: "Useful upgrades that gives a lot of EXP multipliers are useless.",
             goalDescription: "200 Experience Points",
-            rewardDescription: "Unlock 'Base BP to EXP UP' upgrade! (NI)",
+            rewardDescription: "Unlock 'Base BP to EXP UP' upgrade!",
             canComplete: function() {return player.points.gte(200)},
             unlocked() { return (hasUpgrade('s', 25)) },
         },
@@ -32,22 +68,23 @@ addLayer("bp", {
             name: "Unresearchable",
             challengeDescription: "Upgrades that power things are useless.",
             goalDescription: "1500 Experience Points",
-            rewardDescription: "Unlock 'Base BP to RP UP' upgrade! (NI)",
+            rewardDescription: "Unlock 'Base BP to RP UP' upgrade!",
             canComplete: function() {return player.points.gte(1500)},
             unlocked() { return (hasUpgrade('s', 25)) },
         },
         13: {
             name: "Science of Scilence",
-            challengeDescription: "Science layer is locked.",
-            goalDescription: "4000 Experience Points",
-            rewardDescription: "Unlock 'Base BP to SP UP' upgrade! (NI)",
-            canComplete: function() {return player.points.gte(4000)},
+            challengeDescription: "Science upgrades are nerfed.",
+            goalDescription: "900 Experience Points",
+            rewardDescription: "Unlock 'Base BP to SP UP' upgrade!",
+            canComplete: function() {return player.points.gte(900)},
             unlocked() { return (hasUpgrade('s', 25)) },
         },
     },
     autoUpgrade() {
         return hasMilestone("mL", 4)
     },
+    canBuyMax() {return hasMilestone('InflationRPGLevel', 3)},
     //passiveGeneration() {
     //    let gen = new Decimal(0)
     //    if (hasMilestone("o", 1)) gen = new Decimal(0.5)
@@ -79,5 +116,5 @@ addLayer("bp", {
     hotkeys: [
         {key: "b", description: "B: Reset to boost!", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return hasUpgrade('sc', 35) || hasUpgrade('bp', 11)}
+    layerShown(){return hasUpgrade('sc', 35) || hasUpgrade('bp', 11) &&! inChallenge('HRchr', 22) &&! inChallenge('HRchr', 31)}
 })

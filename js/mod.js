@@ -3,7 +3,7 @@ let modInfo = {
 	id: "research",
 	author: "DifficultComplexity",
 	pointsName: "experience points",
-	modFiles: ["layers.js", "tree.js", 'tier.js', "scientists.js", "science.js", "upgraders.js", "mastery.js", "boost.js"], // IMPORTANT: ADD THE FILES HERE TO BE MENTIONED!
+	modFiles: ["layers.js", "tree.js", 'tier.js', "scientists.js", "science.js", "upgraders.js", "mastery.js", "boost.js", "levels.js", "chr_homestarrunner.js", "bonus.js"], // IMPORTANT: ADD THE FILES HERE TO BE MENTIONED!
     
 	discordName: "",
 	discordLink: "",
@@ -12,8 +12,8 @@ let modInfo = {
 }
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.4.1 | Non-Redux",
-	name: "Tier 2 Update 4 Addition 1: Challenges",
+	num: "0.3 | Non-Redux",
+	name: "Tier 3: Characters and Challenges",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -63,7 +63,27 @@ let changelog = `<h1>Changelog:</h1><br>
         - Added Challenges.<br>
         - Rebalanced formula.<br>
 		v0.2.4.1<br>
-        - Added Challenge Nerfs.<br>`
+        - Added Challenge Nerfs.<br>
+		<h3>v0.2.5</h3><br>
+        - Added Levels.<br>
+        - Rebalanced.<br>
+		<h4>v0.2.5.R1</h4><br>
+        Inflation RPG Era.<br>
+        - New Level Upgrades and Milestones.<br>
+		v0.2.5.R2<br>
+		- Rebalancing and new upgrades.<br>
+		<h3>v0.2.6</h3><br>
+		- Added Characters.<br>
+		- Each has challenge rewards. If you beat it you will get their blessing.<br>
+		v0.2.6.1<br>
+		- Rebalanced Challenge rewards and added new upgrades for beating challenges.<br>
+		- Endgame at 80,000 EXP<br>
+		<h3>v0.2.F</h3><br>
+		- Added the final upgrade.<br>
+		<h2>v0.3: Tier 3 Era</h2><br>
+		- Tier 2 is now complete, entering Tier 3...<br>
+		- Balanced up to 110,000 EXP, Tier 3.<br>`
+
 	
 
 let winText = `Congratulations! You researched all types of any objects and caused a new invention to go more META! (Please do not press "Keep going.")`
@@ -99,11 +119,20 @@ function getPointGen() {
 	if (hasUpgrade('s', 23)) gain = gain.times(upgradeEffect('s', 23))
 	if (hasUpgrade('mL', 11)) gain = gain.times(upgradeEffect('mL', 11))
 	if (hasUpgrade('sc', 31)) gain = gain.times(upgradeEffect('sc', 31))
-	if (hasUpgrade('bp', 12)) gain = gain.times(1.5)
+	if (hasUpgrade('bp', 12)) gain = gain.times(upgradeEffect('bp', 12))
 	if (hasUpgrade('s', 21)) gain = gain.times(upgradeEffect('s', 21))
 	if (hasUpgrade('s', 22)) gain = gain.times(upgradeEffect('s', 22))
+	if (hasUpgrade('InflationRPGLevel', 11)) gain = gain.times(upgradeEffect('InflationRPGLevel', 11))
+	if (hasChallenge('HRchr', 11)) gain = gain.times(1.25)
+	if (hasUpgrade('r', 33)) gain = gain.times(upgradeEffect('r', 33))
+	if (hasUpgrade('mL', 22)) gain = gain.times(1.1)
+	if (hasUpgrade('mL', 23)) gain = gain.times(upgradeEffect('mL', 23))
 	if (hasUpgrade('r', 14)) gain = gain.pow(upgradeEffect('r', 14))
 	if (hasUpgrade('sc', 11)) gain = gain.pow(upgradeEffect('sc', 11))
+	if (hasChallenge('HRchr', 21)) gain = gain.pow(1.01)
+	if (inChallenge('HRchr', 11)) gain = gain.pow(1.25)
+	if (inChallenge('HRchr', 12)) gain = gain.pow(0.66)
+	if (inChallenge('HRchr', 21)) gain = gain.pow(0.9)
 	return gain
 }
 
@@ -117,7 +146,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.r.points.gte('e5')
+	return player.r.points.gte(110000)
 	// player.li.points.gte(7.6e9)
 }
 

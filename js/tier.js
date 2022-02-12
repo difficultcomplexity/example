@@ -32,7 +32,7 @@ addLayer("tier", {
     baseResource: "EXP. Spend Experience to tier up.", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 3.580843, // Prestige currency exponent
+    exponent: 3.111675, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -40,7 +40,7 @@ addLayer("tier", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },    
-    row: 11, // Row the layer is in on the tree (0 is the first row)
+    row: 15, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "t", description: "T: Reset to tier up!", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],

@@ -6,8 +6,9 @@ addLayer("sc", {
             cost: new Decimal(10),
             
             effect() {
-                let effect = (player.sc.points.add(1e10).log(9).log(10)).add(0.1)
+                let effect = (player.sc.points.add(1e10).log(10).log(10)).add(0.1)
                 if (inChallenge('bp', 12)) effect = new Decimal(1)
+                if (inChallenge('bp', 13)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
@@ -18,7 +19,9 @@ addLayer("sc", {
             cost: new Decimal(30),
             unlocked() {return hasUpgrade('sc', 11) && player.tier.points.gte(1)},
             effect() {
-                return (player.sc.points.log(4).add(4)).pow(0.3).pow((player.s.points.add(1)).log(4).pow(0.4))
+                let effect = (player.sc.points.log(4).add(4)).pow(0.3).pow((player.s.points.add(1)).log(4).pow(0.4))
+                if (inChallenge('bp', 13)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -42,6 +45,7 @@ addLayer("sc", {
             effect() {
                 let effect = new Decimal.pow(1.025, player.s.points.add(1))
                 if (hasUpgrade('sc', 15)) effect = new Decimal.pow(1.05, player.s.points.add(1))
+                if (inChallenge('bp', 13)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -88,7 +92,9 @@ addLayer("sc", {
             cost: new Decimal(2500),
             unlocked() {return hasUpgrade('sc', 25) && player.tier.points.gte(2)},
             effect() {
-                return new Decimal.pow(1.01, (player.mL.points.add(2).log(2)).pow(3))
+                let effect = new Decimal.pow(1.01, (player.mL.points.add(2).log(2)).pow(3))
+                if (inChallenge('bp', 13)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -98,7 +104,8 @@ addLayer("sc", {
             cost: new Decimal(5000),
             unlocked() {return hasUpgrade('sc', 31) && player.tier.points.gte(2)},
             effect() {
-                return new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(5.5))
+                let effect = new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(5.5))
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -108,7 +115,9 @@ addLayer("sc", {
             cost: new Decimal(20000),
             unlocked() {return hasUpgrade('sc', 32) && player.tier.points.gte(2)},
             effect() {
-                return new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(4))
+                let effect = new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(4))
+                if (inChallenge('bp', 13)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -138,7 +147,12 @@ addLayer("sc", {
         if (hasUpgrade('mL', 12)) gain = gain.times(upgradeEffect('mL', 12))
         if (hasUpgrade('sc', 12)) gain = gain.times(upgradeEffect('sc', 12))
         if (hasUpgrade('sc', 32)) gain = gain.times(upgradeEffect('sc', 32))
-        if (hasUpgrade('bp', 13)) gain = gain.times(3)
+        if (hasUpgrade('bp', 13)) gain = gain.times(upgradeEffect('bp', 13))
+        if (hasUpgrade('bp', 14)) gain = gain.times(upgradeEffect('bp', 14))
+        if (hasUpgrade('InflationRPGLevel', 12)) gain = gain.times(upgradeEffect('InflationRPGLevel', 12))
+        if (hasUpgrade('r', 31)) gain = gain.times(upgradeEffect('r', 31))
+        if (hasUpgrade('bonuses', 12)) gain = gain.times(upgradeEffect('bonuses', 12))
+        if (inChallenge('HRchr', 12)) gain = gain.div(3)
         addPoints('sc', gain.times(diff))
     },
     name: "science", // This is optional, only used in a few places, If absent it just uses the layer id.
@@ -167,5 +181,5 @@ addLayer("sc", {
     hotkeys: [
         {key: "s", description: "S: Reset for scientists", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return (hasUpgrade('s', 15)) &&! (inChallenge('bp', 13))}
+    layerShown(){return (hasUpgrade('s', 15))}
 })

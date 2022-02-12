@@ -7,6 +7,7 @@ addLayer("upg", {
             effect() {
                 let effect = new Decimal.pow(1.01, (player.upg.points.pow(0.8)))
                 if (hasUpgrade('upg', 21)) effect = new Decimal.pow(1.025, (player.upg.points.pow(0.8)))
+                if (inChallenge('HRchr', 22)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -19,18 +20,20 @@ addLayer("upg", {
             effect() {
                 let effect = new Decimal.pow(1.005, (player.upg.points.pow(0.75)))
                 if (hasUpgrade('upg', 22)) effect = new Decimal.pow(1.01, (player.upg.points.pow(0.75)))
+                if (inChallenge('HRchr', 22)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         13: {
             title: "Upgrade SP!",
-            description: "Upgraders increase by x1.001 on SP.",
+            description: "Upgraders increase by x1.025 on SP.",
             cost: new Decimal(3),
             unlocked() {return hasUpgrade('upg', 12) && player.tier.points.gte(1)},
             effect() {
-                let effect = new Decimal.pow(1.001, (player.upg.points.pow(0.7)))
-                if (hasUpgrade('upg', 21)) effect = new Decimal.pow(1.0025, (player.upg.points.pow(0.7)))
+                let effect = new Decimal.pow(1.025, (player.upg.points.pow(0.7)))
+                if (hasUpgrade('upg', 21)) effect = new Decimal.pow(1.05, (player.upg.points.pow(0.7)))
+                if (inChallenge('HRchr', 22)) effect = new Decimal(1)
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -49,7 +52,7 @@ addLayer("upg", {
         },
         23: {
             title: "Upgrade SP BASE!",
-            description: "Upgraders increase by x1.0025 on SP.",
+            description: "Upgraders increase by x1.05 on SP.",
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('upg', 13) && player.tier.points.gte(2)},
         },
@@ -64,6 +67,7 @@ addLayer("upg", {
             },
         },
     },
+    canBuyMax() {return hasMilestone('InflationRPGLevel', 1)},
     autoUpgrade() {
         return hasMilestone("mL", 3)
     },
@@ -98,5 +102,5 @@ addLayer("upg", {
     hotkeys: [
         {key: "u", description: "U: Reset to get upgraders", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return hasUpgrade('sc', 24) &&! (inChallenge('HRchr', 11))}
 })

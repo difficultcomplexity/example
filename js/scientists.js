@@ -5,7 +5,9 @@ addLayer("s", {
             description: "Scientists boost EXP gain.",
             cost: new Decimal(1),
             effect() {
-                return player.s.points.pow(1.23).add(2.5).pow(0.75)
+                let effect = (player.s.points.pow(1.05).add(2.5).pow(0.7)).add(1.75).log(1.75)
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -15,7 +17,10 @@ addLayer("s", {
             cost: new Decimal(1),
             unlocked() {return hasUpgrade('s', 11) && player.tier.points.gte(1)},
             effect() {
-                return player.s.points.pow(1.1).add(2.25).pow(0.55)
+                let effect = player.s.points.pow(1.1).add(2.25).pow(0.7).log(1.33)
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                if (inChallenge('HRchr', 11)) effect = player.s.points.pow(1.25).add(2.25).pow(0.8).log(1.2)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -43,7 +48,10 @@ addLayer("s", {
             cost: new Decimal(6),
             unlocked() {return hasUpgrade('s', 15) && player.tier.points.gte(2)},
             effect() {
-                return (player.mL.points.pow(0.2).add(2).pow(0.2)).add(4).log(4).pow(Decimal.pow(1.002, player.bp.points).add(2).log(2))
+                let effect =(player.mL.points.pow(0.2).add(2).pow(0.2)).add(4).log(4).pow(Decimal.pow(1.002, player.bp.points).add(2).log(2))
+                
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -53,7 +61,9 @@ addLayer("s", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('s', 21) && player.tier.points.gte(2)},
             effect() {
-                return (player.s.points.pow(0.1).add(2).pow(0.15)).add(3.5).log(3.5).pow(Decimal.pow(1.002, (player.sc.points).add(10).log(10)).add(2).log(2))
+                let effect = (player.s.points.pow(0.1).add(2).pow(0.15)).add(3.5).log(3.5).pow(Decimal.pow(1.002, (player.sc.points).add(10).log(10)).add(2).log(2))
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -63,7 +73,9 @@ addLayer("s", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('s', 22) && player.tier.points.gte(2)},
             effect() {
-                return (player.s.points.pow(0.2).add(2).pow(0.175)).add(2.5).log(2.5).pow(Decimal.pow(1.005, (player.mL.points).add(2).log(2)).add(3).log(3))
+                let effect = (player.s.points.pow(0.2).add(2).pow(0.175)).add(2.5).log(2.5).pow(Decimal.pow(1.005, (player.mL.points).add(2).log(2)).add(3).log(3))
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -73,7 +85,9 @@ addLayer("s", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('s', 23) && player.tier.points.gte(2)},
             effect() {
-                return (player.s.points.pow(0.33).pow(0.9)).add(10).log(10)
+                let effect = (player.s.points.pow(0.33).pow(0.9)).add(10).log(10)
+                if (inChallenge('HRchr', 11)) effect = new Decimal(1)
+                return effect
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
@@ -84,6 +98,7 @@ addLayer("s", {
             unlocked() {return hasUpgrade('s', 24) && player.tier.points.gte(2)},
         },
     },
+    canBuyMax() {return hasMilestone('InflationRPGLevel', 1)},
     //autoUpgrade() {
     //    return hasMilestone("o", 2)
     //},
@@ -120,5 +135,5 @@ addLayer("s", {
     hotkeys: [
         {key: "s", description: "S: Reset for scientists", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return (hasUpgrade('r', 15))  || hasUpgrade('s', 11)}
+    layerShown(){return (hasUpgrade('r', 15)) || hasUpgrade('s', 11) &&! inChallenge('HRchr', 11)}
 })
