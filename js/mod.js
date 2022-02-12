@@ -82,7 +82,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added the final upgrade.<br>
 		<h2>v0.3: Tier 3 Era</h2><br>
 		- Tier 2 is now complete, entering Tier 3...<br>
-		- Balanced up to 110,000 EXP, Tier 3.<br>`
+		- Balanced up to 110,000 EXP, Tier 3.<br>
+		v0.3_H1:<br>
+		- Bug at Tier 1; Level is unlocked earlier is fixed.<br>`
 
 	
 
