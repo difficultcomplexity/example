@@ -96,5 +96,5 @@ addLayer("InflationRPGLevel", {
         return new Decimal(6.5)
     },
     row: 3, // Row the layer is in on the tree (0 is the first row)
-    layerShown(){return player.InflationRPGLevel.points.gte(2) || hasUpgrade(mL, 15)}
+    layerShown(){return player.InflationRPGLevel.points.gte(2) || (hasUpgrade('mL', 15))}
 })
