@@ -17,7 +17,8 @@ addLayer("s", {
             cost: new Decimal(1),
             unlocked() {return hasUpgrade('s', 11) && player.tier.points.gte(1)},
             effect() {
-                let effect = player.s.points.pow(1.1).add(2.25).pow(0.7).log(1.33)
+                let effect = player.s.points.pow(1.1).add(2.25).pow(0.7).log(1.35)
+                if (hasUpgrade('sc', 44)) effect = player.s.points.pow(1.1).add(2.25).pow(0.7).log(1.33).pow(1.5)
                 if (inChallenge('HRchr', 11)) effect = new Decimal(1)
                 if (inChallenge('HRchr', 11)) effect = player.s.points.pow(1.25).add(2.25).pow(0.8).log(1.2)
                 return effect

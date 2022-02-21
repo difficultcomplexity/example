@@ -155,7 +155,7 @@ addLayer("r", {
         35: {
             title: "Alternia",
             description: "Unlock Homestuck.",
-            cost: new Decimal(100000000),
+            cost: new Decimal(1e20),
             unlocked() {return hasUpgrade('r', 34) && player.tier.points.gte(2)},
             effect() {
                 let effect = (player.upg.points.add(50).log(50).add(2).log(2)).pow(player.mL.points.add(8).log(8)).add(3).log(3).pow(2)

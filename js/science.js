@@ -6,7 +6,7 @@ addLayer("sc", {
             cost: new Decimal(10),
             
             effect() {
-                let effect = (player.sc.points.add(1e10).log(10).log(10)).add(0.1)
+                let effect = (player.sc.points.add(1e15).log(10).log(15)).add(1.1).log(1.9)
                 if (inChallenge('bp', 12)) effect = new Decimal(1)
                 if (inChallenge('bp', 13)) effect = new Decimal(1)
                 return effect
@@ -45,6 +45,7 @@ addLayer("sc", {
             effect() {
                 let effect = new Decimal.pow(1.025, player.s.points.add(1))
                 if (hasUpgrade('sc', 15)) effect = new Decimal.pow(1.05, player.s.points.add(1))
+                if (hasUpgrade('sc', 43)) effect = new Decimal.pow(1.05, player.s.points.add(1)).pow(1.9)
                 if (inChallenge('bp', 13)) effect = new Decimal(1)
                 return effect
             },
@@ -105,6 +106,7 @@ addLayer("sc", {
             unlocked() {return hasUpgrade('sc', 31) && player.tier.points.gte(2)},
             effect() {
                 let effect = new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(5.5))
+                if (hasUpgrade('sc', 41)) effect = new Decimal.pow(1.01, (player.mL.points.add(4).log(4)).pow(7))
                 return effect
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -116,6 +118,7 @@ addLayer("sc", {
             unlocked() {return hasUpgrade('sc', 32) && player.tier.points.gte(2)},
             effect() {
                 let effect = new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(4))
+                if (hasUpgrade('sc', 41)) effect = new Decimal.pow(1.01, (player.mL.points.add(3).log(3)).pow(4.5))
                 if (inChallenge('bp', 13)) effect = new Decimal(1)
                 return effect
             },
@@ -132,6 +135,41 @@ addLayer("sc", {
             title: "Upgrade... Upgrades?",
             description: "Unlock UPGRADE<sub>(2)</sub>.",
             cost: new Decimal(100000),
+            unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
+
+        },
+        41: {
+            title: "Upgrade... Upgrades?",
+            description: "EXPO +1.5 and +0.5 up to sc33 and sc34.",
+            cost: new Decimal(5e8),
+            unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
+
+        },
+        42: {
+            title: "Endless Frontier",
+            description: "Affection",
+            cost: new Decimal(1e10),
+            unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
+
+        },
+        43: {
+            title: "CTRV-ResVinvo",
+            description: "^2 to sc14.",
+            cost: new Decimal(1e12),
+            unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
+
+        },
+        44: {
+            title: "Definition",
+            description: "^1.5 to s12.",
+            cost: new Decimal(1e15),
+            unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
+
+        },
+        44: {
+            title: "Impossible",
+            description: "Im gonna go on hiatus... sorry.",
+            cost: new Decimal(1e20),
             unlocked() {return hasUpgrade('sc', 34) && player.tier.points.gte(2)},
 
         },

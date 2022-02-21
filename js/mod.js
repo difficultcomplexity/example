@@ -84,7 +84,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Tier 2 is now complete, entering Tier 3...<br>
 		- Balanced up to 110,000 EXP, Tier 3.<br>
 		v0.3_H1:<br>
-		- Bug at Tier 1; Level is unlocked earlier is fixed.<br>`
+		- Bug at Tier 1; Level is unlocked earlier is fixed.<br>
+		v0.3.0.1:<br>
+		- Added new science upgrades.<br>
+		- Hiatus. (The Alternian Tree will be released for it)<br>`
 
 	
 

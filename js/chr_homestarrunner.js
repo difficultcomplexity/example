@@ -11,9 +11,9 @@ addLayer("HRchr", {
         12: {
             name: "Wizard",
             challengeDescription: "Research gain is reducted to ^0.75, science gain is divided by 3. EXP gain is ^0.66. Few of upgrades are buffed.",
-            goalDescription: "100000 Experience Points",
+            goalDescription: "15000 Experience Points",
             rewardDescription: "x1.5 RP permanently, and add more mastery upgrades. Speciality upgrade is based on RP upgrades^1.1",
-            canComplete: function() {return player.points.gte(100000)},
+            canComplete: function() {return player.points.gte(15000)},
             unlocked() { return true },
         },
         21: {
