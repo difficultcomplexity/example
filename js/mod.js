@@ -3,12 +3,12 @@ let modInfo = {
 	id: "omni",
 	author: "DifficultComplexity",
 	pointsName: "starts",
-	modFiles: ["tree.js", "layers.js"], // IMPORTANT: ADD THE FILES HERE TO BE MENTIONED!
+	modFiles: ["tree.js", "achievement.js", "layers.js", "planck.js"], // IMPORTANT: ADD THE FILES HERE TO BE MENTIONED!
     
 	discordName: "",
 	discordLink: "",
 	initialStartPoints: new Decimal (0), // Used for hard resets and new players
-	offlineLimit: 12,  // In hours
+	offlineLimit: 1,  // In hours
 }
 // Set your version in num and name
 let VERSION = {
@@ -43,6 +43,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = (new Decimal(0.00001).div((player.points).pow(150).add(1)).pow(0.1).div(5))
+	if (hasAchievement('a', 13)) gain = gain.times(1.75)
 	if (hasUpgrade('p', 11)) gain = gain.times(upgradeEffect('p', 11))
 	if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	return gain
